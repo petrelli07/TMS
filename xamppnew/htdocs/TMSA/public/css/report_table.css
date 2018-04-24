@@ -1,0 +1,30 @@
+table {
+    width: 100%;
+}
+
+
+table, th, td {
+    border: 1px solid #000000;
+    font-size: 15px;
+    border-collapse: collapse;
+    padding-left: 10px;
+    margin: auto;
+}
+
+.report_head {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+th {
+    font-weight: 700;
+}
+
+td{
+    padding: 7px 10px;
+}
+
+.second_div td {
+    background-color: #e9f4fb;
+    border: none;
+}

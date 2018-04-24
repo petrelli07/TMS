@@ -1,0 +1,94 @@
+/* -------------------------------------
+ * General Style
+ * ------------------------------------- */
+/*@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200,300,400,700);*/
+/** {*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+/*}*/
+
+body {
+    /*font-family: 'Yanone Kaffeesatz';*/
+    background-color: #eee;
+    color: #666;
+    overflow-x: hidden;
+    height:1500px; /* Just for the sake of this tutorial */
+}
+.content {
+    padding: 100px 100px;
+}
+.content p {
+    margin-bottom: 50px;
+}
+
+/* -------------------------------------
+ * Menu Bar
+ * ------------------------------------- */
+.wrapper {
+    position: relative;
+    left: 0;
+}
+#menu {
+    position: fixed;
+    width: 240px;
+    height: 100%;
+    top: 0;
+    left: -240px;
+    z-index: 1000;
+    background-color: #186;
+    overflow: auto;
+}
+#menu,
+.wrapper {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#menu ul {
+    list-style: outside none none;
+}
+#menu ul h1 {
+    text-align: center;
+    color: #fff;
+    font-size: 2.5em;
+    cursor: default;
+}
+#menu ul li:first-child {
+    background-color: #668;
+}
+#menu ul li {
+    padding: 15px 0 15px 15px;
+    text-align: left;
+    border: solid #fff;
+    border-width: 0 0 1px 0;
+}
+#menu ul li:hover {
+    background-color: #668;
+}
+#menu ul li a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 300;
+    font-size: 1.5em;
+}
+#menu.menu-open {
+    left: 0px;
+}
+.menu-push {
+    left: 240px;
+}
+
+#menu.menu-close {
+    left: 240px;
+}
+.menu-push-close {
+    left: 0px;
+}
+.menu-btn {
+    color: #186;
+    border: none;
+    position: fixed;
+    padding: 30px;
+    background-color: transparent;
+}
