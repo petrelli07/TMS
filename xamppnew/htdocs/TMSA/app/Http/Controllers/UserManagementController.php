@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use DB;
 use Validator;
 use Auth;
+use App\CarrierDetail;
+use App\CarrierResource;
 
 class UserManagementController extends Controller
 {
@@ -30,7 +32,7 @@ class UserManagementController extends Controller
 
             $validator = Validator::make($request->all(), [
 
-                'email'=>'required',
+                'email'=>'required|unique:users',
                 'category'=>'required',
                 'name'=>'required',
 
@@ -67,28 +69,83 @@ class UserManagementController extends Controller
 
                     }elseif($request->category == "2"){
 
-                        $haul = DB::table("users")->insert([
-                            'name' => $name,
-                            'email' => $email,
-                            'password' => $defaultPassword,
-                            'userAccessLevel' => $category,
-                            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-                            'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                        $rcNumber = $request->rcNumber;
+                        $emailModal = $request->email;
+                        $nameModal = $request->name;
+                        $categoryModal = $request->category;
+                        $companyName = $request->companyName;
+
+                            $haul = DB::table("users")->insertGetId([
+                                'name' => $nameModal,
+                                'email' => $emailModal,
+                                'password' => $defaultPassword,
+                                'userAccessLevel' => $categoryModal,
+                                'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                                'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                            ]);
+
+                            $carrierID = $haul;
+
+                            $logText = $createdByUser." created a new user: name = ".$name." email = ".$email;
+
+                            $log = DB::table("logs")->insert([
+                                'description' => $logText,
+                                'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                                'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                            ]);
+
+                        //carrierDetails
+                        $validator3 = Validator::make($request->all(), [
+
+                            'companyName'=>'required',
+                            'rcNumber'=>'required',
+
                         ]);
 
-                        $logText = $createdByUser." created a new user: name = ".$name." email = ".$email;
-
-                        $log = DB::table("logs")->insert([
-                            'description' => $logText,
-                            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-                            'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
-                        ]);
-
-                        if($haul && $log){
-                            return response()->json(['success'=>'New Haulage Provider Created Successfully']);
-                        }else{
-                            return response()->json(['error'=>'Something Went Wrong']);
+                        if ($validator3->passes()) {
+                            $insertCarrierDetails = DB::table("carrier_details")->insertGetId([
+                                'user_id' => $carrierID,
+                                'rcNumber' => $rcNumber,
+                                'companyName' => $companyName,
+                                'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                                'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                            ]);
                         }
+                        //endCarrierDetails
+
+                        //resources
+                            $validator2 = Validator::make($request->all(), [
+
+                                'resourceType.*'=>'required',
+                                'capacity.*'=>'required',
+                                'resourceStatus.*'=>'required',
+                                'routeType.*'=>'required',
+                                'git.*'=>'required',
+
+                            ]);
+
+                            if ($validator2->passes()) {
+                                for ($i=0; $i < count($request->get('resourceType')); ++$i)
+                                {
+                                    $resources = new CarrierResource;
+                                    $resources->user_id = $carrierID;
+                                    $resources->resourceType= $request->get('resourceType')[$i];
+                                    $resources->capacity= $request->get('estimatedCapacity')[$i];
+                                    $resources->resourceStatus= $request->get('resourceStatus')[$i];
+                                    $resources->routeType= $request->get('routeType')[$i];
+                                    $resources->git= $request->get('git')[$i];
+                                    $resources->created_at = \Carbon\Carbon::now()->toDateTimeString();
+                                    $resources->updated_at = \Carbon\Carbon::now()->toDateTimeString();
+                                    $res = $resources->save();
+                                }
+                            }
+                        //endresources
+
+                            if($haul && $log && $res){
+                                return response()->json(['success'=>'New Haulage Provider Created Successfully']);
+                            }else{
+                                return response()->json(['error'=>'Something Went Wrong']);
+                            }
 
                     }
                 }else{

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHCDetailsTable extends Migration
+class CreateCarrierDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateHCDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('h_c_details', function (Blueprint $table) {
+        Schema::create('carrier_details', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('companyName');
             $table->string('rcNumber');
-            $table->text('address');
-            $table->integer('userID')->unsigned()->index();
-            $table->foreign('userID')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('createdBy')->unsigned()->index();
-            $table->foreign('createdBy')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ class CreateHCDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('h_c_details');
+        Schema::dropIfExists('carrier_details');
     }
 }

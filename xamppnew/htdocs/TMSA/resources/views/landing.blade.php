@@ -12,6 +12,7 @@
     <script type="text/javascript" src="{{ url('js/bootstrap.js')}}"></script>
     <script type="text/javascript" src="{{ url('js/admin_dashboard.js')}}"></script>
     <script type="text/javascript" src="{{ url('js/newUser.js')}}"></script>
+    <script type="text/javascript" src="{{ url('js/newCarrier.js')}}"></script>
     <script>
 
         $(document).ready(function() {
@@ -309,7 +310,7 @@
                     </div>
                     <div class="form-bottom">
 
-                        <form method="post" action="{{ url('/createNewTestCase') }}" class="newTestCase">
+                        <form id="carrDetails"  class="newTestCase">
                             {{ csrf_field() }}
                             <div class="input-group" style="margin-bottom: 30px;">
                                 <div style="color:black;">Registered Company Name</div>
@@ -342,9 +343,10 @@
                                 <span class="input-group-addon"></span>
                                 <div style="color:black;">Resource Status</div>
                                 <select class="form-first-name form-control" name="resourceStatus[]"  id="form-first-name">
-                                    <option value="0">Truck</option>
-                                    <option value="1">Ship</option>
-                                    <option value="2">Cargo Plane</option>
+                                    <option value="0">Available</option>
+                                    <option value="1">In Use</option>
+                                    <option value="2">Inactive</option>
+                                    <option value="2">Under Maintenance</option>
                                 </select>
 
                                 <span class="input-group-addon"></span>
@@ -362,7 +364,7 @@
 
                                 <span class="input-group-addon"></span>
                                 <div style="color:black;">GIT Insurance</div>
-                                <select class="form-first-name form-control" name="routeType[]"  id="form-first-name">
+                                <select class="form-first-name form-control" name="git[]"  id="form-first-name">
                                     <option value="0">NO</option>
                                     <option value="1">YES</option>
                                 </select>
@@ -372,7 +374,7 @@
                             <input type="hidden" name="name" id="nameModal">
                             <input type="hidden" name="category" id="categoryModal">
 
-                            <button class="btn btn-success btn-submit">Submit</button>
+                            <button class="btn btn-success btn-submit newCarrDets">Submit</button>
 
                         </form>
                         &nbsp;
@@ -383,8 +385,6 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
-
-        <input id="feed_id" name="cid" type="hidden" value="" />
 
     </div>
 
@@ -402,7 +402,7 @@
             e.preventDefault();
             if(x < max_fields){ //max input box allowed
                 x++; //text box increment
-                $(wrapper).append('<div><div class="input-group"><div style="color:black;">Resource Type</div><select class="form-first-name form-control" name="resourceType[]" id="resourceType"><option value="0">Truck</option><option value="1">Ship</option><option value="2">Cargo Plane</option></select><span class="input-group-addon"></span><div style="color:black;">Estimated Capacity(Tonnes)</div><input class="form-first-name form-control" name="estimatedCapacity[]" id="form-first-name"><span class="input-group-addon"></span><div style="color:black;">Resource Status</div><select class="form-first-name form-control" name="resourceStatus[]"  id="form-first-name"><option value="0">Truck</option><option value="1">Ship</option><option value="2">Cargo Plane</option></select><span class="input-group-addon"></span><div style="color:black;">Type Of Route</div><select class="form-first-name form-control" name="routeType[]"  id="form-first-name"><option value="0">Nationwide</option><option value="1">SW</option><option value="2">SE</option><option value="3">SS</option><option value="4">NE</option><option value="5">NW</option><option value="6">NC</option><option value="7">International</option></select><span class="input-group-addon"></span><div style="color:black;">GIT Insurance</div><select class="form-first-name form-control" name="routeType[]"  id="form-first-name"><option value="0">NO</option><option value="1">YES</option></select></div><br/><a href="#" class="remove_field_prerequsite">Remove</a></div>'); //add input box
+                $(wrapper).append('<div><div class="input-group"><div style="color:black;">Resource Type</div><select class="form-first-name form-control" name="resourceType[]" id="resourceType"><option value="0">Truck</option><option value="1">Ship</option><option value="2">Cargo Plane</option></select><span class="input-group-addon"></span><div style="color:black;">Estimated Capacity(Tonnes)</div><input class="form-first-name form-control" name="estimatedCapacity[]" id="form-first-name"><span class="input-group-addon"></span><div style="color:black;">Resource Status</div><select class="form-first-name form-control" name="resourceStatus[]"  id="form-first-name"><option value="0">Truck</option><option value="1">Ship</option><option value="2">Cargo Plane</option></select><span class="input-group-addon"></span><div style="color:black;">Type Of Route</div><select class="form-first-name form-control" name="routeType[]"  id="form-first-name"><option value="0">Nationwide</option><option value="1">SW</option><option value="2">SE</option><option value="3">SS</option><option value="4">NE</option><option value="5">NW</option><option value="6">NC</option><option value="7">International</option></select><span class="input-group-addon"></span><div style="color:black;">GIT Insurance</div><select class="form-first-name form-control" name="git[]"  id="form-first-name"><option value="0">NO</option><option value="1">YES</option></select></div><br/><a href="#" class="remove_field_prerequsite">Remove</a></div>'); //add input box
             }
         });
 
