@@ -13,7 +13,8 @@
     <script type="text/javascript" src="{{ url('js/admin_dashboard.js')}}"></script>
     <script type="text/javascript" src="{{ url('js/newUser.js')}}"></script>
     <script type="text/javascript" src="{{ url('js/newCarrier.js')}}"></script>
-    <script>
+    <script type="text/javascript" src="{{ url('js/newClient.js')}}"></script>
+<!--    <script>
 
         $(document).ready(function() {
             $(".ShowMe").hide();
@@ -22,9 +23,7 @@
                 if ( this.value == '2')
                 //.....................^.......
                 {
-                    $(".ShowMe").show();
-                    $(".userDetails").hide();
-                    $(".carrierDetails").show();
+
 
                 }
                 else
@@ -43,6 +42,60 @@
                 document.getElementById('emailModal').value = email;
                 document.getElementById('nameModal').value = name;
                 document.getElementById('categoryModal').value = userCategory;
+            });
+        });
+    </script>-->
+
+
+    <script>
+
+        $(document).ready(function() {
+            $(".ShowMeClient").hide();
+            $(".clientDetails").hide();
+
+            $(".ShowMe").hide();
+            $(".carrierDetails").hide();
+
+            $('#userCategory').on('change', function() {
+                if ( this.value == '1')
+                //.....................^.......
+                {
+                    $(".ShowMeClient").show();
+                    $(".userDetails").hide();
+                    $(".clientDetails").show();
+
+                    $('.clientDetails').on('click', function() {
+                        var clientName = $('#name').val();
+                        var clientEmail = $('#email').val();
+                        var userClientCategory = $('#userCategory').val();
+
+                        document.getElementById('clientemailModal').value = clientName;
+                        document.getElementById('clientnameModal').value = clientEmail;
+                        document.getElementById('clientcategoryModal').value = userClientCategory;
+                    });
+
+                }
+                else if ( this.value == '2'){
+
+                        //alert("2");
+
+                        $(".ShowMe").show();
+                        $(".userDetails").hide();
+                        $(".carrierDetails").show();
+
+                        $('.carrierDetails').on('click', function() {
+                            var name = $('#name').val();
+                            var email = $('#email').val();
+                            var userCategory = $('#userCategory').val();
+
+                            document.getElementById('emailModal').value = email;
+                            document.getElementById('nameModal').value = name;
+                            document.getElementById('categoryModal').value = userCategory;
+                        });
+
+
+
+                }
             });
         });
     </script>
@@ -168,25 +221,27 @@
                 </li>
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #ffffff;">Posts<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-newspaper-o"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #ffffff;">Manage Users<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-newspaper-o"></span></a>
                     <ul class="dropdown-menu forAnimate" role="menu">
-                        <li><a href="{{url('/')}}">Create Post</a></li>
-                        <li><a href="{{ url('/viewAllArticle') }}">View Posts Created</a></li>
+                        <li><a href="{{url('/home')}}">Create Users</a></li>
+                        <li><a href="{{url('/viewAllUsers')}}">View All Users</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #ffffff;">My Orders<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-newspaper-o"></span></a>
+                    <ul class="dropdown-menu forAnimate" role="menu">
+                        <li><a href="{{url('/viewOrders')}}">View All Orders</a></li>
                     </ul>
                 </li>
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #ffffff;">Directory <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-map-pin"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #ffffff;">All Resources<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-newspaper-o"></span></a>
                     <ul class="dropdown-menu forAnimate" role="menu">
-                        <li><a href="{{ url('/newDirectory') }}">Create New</a></li>
-                        <li><a href="{{ url('/viewAllDirectory') }}">View All</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #ffffff;">Categories <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-gears"></span></a>
-                    <ul class="dropdown-menu forAnimate" role="menu">
-                        <li><a href="{{ url('/createCategory') }}"">Create Category</a></li>
+                        <li><a class="btn btn-success edit" href='{{ url("/viewAllResources") }}' title="View Details">
+                                View All Resources
+                            </a></li>
                     </ul>
                 </li>
 
@@ -253,8 +308,15 @@
                                 </div>
                             </a>
                         </div>
+                        <div class="ShowMeClient row">
+                            <a href="#" data-toggle="modal" data-target="#myClientModal" class="clientDetails">
+                                <div class="col-sm-8 col-sm-offset-2" style="border:1px dashed; margin:10px;">
+                                     <span class="fa fa-plus" style="margin-left:100px; font-size: 24px; color: red;"></span>
+                                     <p style="margin-left:50px;"><b>Add Client Details (Required)</b></p>
+                                </div>
+                            </a>
+                        </div>
                         <button type="submit" class="btn btn-primary userDetails">Create User</button>
-                        <button class="btn btn-primary carrierDetails">Continue</button>
                     </div>
                 </div>
 
@@ -286,6 +348,91 @@
     </div>
 
 
+    <!--Cient Modal -->
+    <div id="myClientModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">New Client Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="description">
+                        <div class="alert alert-danger print-error-msg" style="display:none">
+
+                            <ul></ul>
+                        </div>
+
+                        <div class="alert alert-success print-success-msg" style="display:none">
+
+                            <ul></ul>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+
+                        <form id="clientDetails"  class="newTestCase">
+                            {{ csrf_field() }}
+                            <div class="input-group" style="margin-bottom: 30px;">
+                                <div style="color:black;">Registered Company Name</div>
+                                <label class="sr-only" for="form-first-name">Registered Company Name</label>
+                                <input placeholder="Registered Company Name..." class="form-first-name form-control" id="companyName" name="companyName" required="required">
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 30px;">
+                                <div style="color:black;">RC Number</div>
+                                <label class="sr-only" for="form-first-name">RC Number</label>
+                                <input placeholder="RC Number..." class="form-first-name form-control" id="rcNumber" name="rcNumber" required="required">
+                            </div><!--
+
+                            <div class="form-group" style="margin-bottom: 30px;">
+                                <div style="color:black;">Item Description</div>
+                                <label class="sr-only" for="form-first-name">Item Description</label>
+                                <input placeholder="Item Description..." class="form-first-name form-control" id="itemDescription" name="itemDescription" required="required">
+                            </div>-->
+
+                            <!--<div class="form-group" style="margin-bottom: 30px;">
+                                <div style="color:black;">Packaging Type</div>
+                                <label class="sr-only" for="form-first-name">Packaging Type</label>
+                                <select class="form-first-name form-control col-md-3" required name="packagingType" id="packagingType">
+                                    <option value="">[-Packaging Type-]</option>
+                                    <option value="0">Pallets</option>
+                                    <option value="1">Single</option>
+                                    <option value="2">Others</option>
+                                </select>
+                            </div>
+
+
+                            <!--<div class="stepresults_wrap" style="margin-bottom: 30px;">
+                                <button class="stepresults_add_resource_button btn-md btn-success">Add More Resources</button>
+                            </div>
+                            <br/>-->
+                            <div class="form-group" style="margin-bottom: 30px;">
+                                <p>Upload Client Standard Form Here</p>
+                                <input type="file" name="clientForm" required>
+                            </div>
+
+                            <br/>
+                            <input type="hidden" name="clientemail" id="clientemailModal">
+                            <input type="hidden" name="clientname" id="clientnameModal">
+                            <input type="hidden" name="clientcategory" id="clientcategoryModal">
+
+                            <button class="btn btn-success btn-submit newClientDets">Submit</button>
+
+                        </form>
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+
+
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -310,7 +457,7 @@
                     </div>
                     <div class="form-bottom">
 
-                        <form id="carrDetails"  class="newTestCase">
+                        <form id="carrDetails"  class="newTestCase" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="input-group" style="margin-bottom: 30px;">
                                 <div style="color:black;">Registered Company Name</div>
@@ -324,52 +471,17 @@
                                 <input placeholder="RC Number..." class="form-first-name form-control" id="rcNumber" name="rcNumber" required="required">
                             </div>
 
+                            <div class="form-group" style="margin-bottom: 30px;">
+                                <p>Upload Carrier Standard Route Map File</p>
+                                <input type="file" name="carrierRoute" required>
+                            </div>
 
-                            <div class="stepresults_wrap" style="margin-bottom: 30px;">
-                                <button class="stepresults_add_resource_button btn-md btn-success">Add More Resources</button>
+                            <div class="form-group" style="margin-bottom: 30px;">
+                                <p>Upload Carrier Standard Resource Data File</p>
+                                <input type="file" name="carrierForm" required>
                             </div>
                             <br/>
-                            <div class="input-group">
-                                <div style="color:black;">Resource Type</div>
-                                <select class="form-first-name form-control" name="resourceType[]" id="resourceType">
-                                    <option value="0">Truck</option>
-                                    <option value="1">Ship</option>
-                                    <option value="2">Cargo Plane</option>
-                                </select>
-                                <span class="input-group-addon"></span>
-                                <div style="color:black;">Estimated Capacity(Tonnes)</div>
-                                <input class="form-first-name form-control" name="estimatedCapacity[]" id="form-first-name">
 
-                                <span class="input-group-addon"></span>
-                                <div style="color:black;">Resource Status</div>
-                                <select class="form-first-name form-control" name="resourceStatus[]"  id="form-first-name">
-                                    <option value="0">Available</option>
-                                    <option value="1">In Use</option>
-                                    <option value="2">Inactive</option>
-                                    <option value="2">Under Maintenance</option>
-                                </select>
-
-                                <span class="input-group-addon"></span>
-                                <div style="color:black;">Type Of Route</div>
-                                <select class="form-first-name form-control" name="routeType[]"  id="form-first-name">
-                                    <option value="0">Nationwide</option>
-                                    <option value="1">SW</option>
-                                    <option value="2">SE</option>
-                                    <option value="3">SS</option>
-                                    <option value="4">NE</option>
-                                    <option value="5">NW</option>
-                                    <option value="6">NC</option>
-                                    <option value="7">International</option>
-                                </select>
-
-                                <span class="input-group-addon"></span>
-                                <div style="color:black;">GIT Insurance</div>
-                                <select class="form-first-name form-control" name="git[]"  id="form-first-name">
-                                    <option value="0">NO</option>
-                                    <option value="1">YES</option>
-                                </select>
-                            </div>
-                            <br/>
                             <input type="hidden" name="email" id="emailModal">
                             <input type="hidden" name="name" id="nameModal">
                             <input type="hidden" name="category" id="categoryModal">
@@ -402,7 +514,7 @@
             e.preventDefault();
             if(x < max_fields){ //max input box allowed
                 x++; //text box increment
-                $(wrapper).append('<div><div class="input-group"><div style="color:black;">Resource Type</div><select class="form-first-name form-control" name="resourceType[]" id="resourceType"><option value="0">Truck</option><option value="1">Ship</option><option value="2">Cargo Plane</option></select><span class="input-group-addon"></span><div style="color:black;">Estimated Capacity(Tonnes)</div><input class="form-first-name form-control" name="estimatedCapacity[]" id="form-first-name"><span class="input-group-addon"></span><div style="color:black;">Resource Status</div><select class="form-first-name form-control" name="resourceStatus[]"  id="form-first-name"><option value="0">Truck</option><option value="1">Ship</option><option value="2">Cargo Plane</option></select><span class="input-group-addon"></span><div style="color:black;">Type Of Route</div><select class="form-first-name form-control" name="routeType[]"  id="form-first-name"><option value="0">Nationwide</option><option value="1">SW</option><option value="2">SE</option><option value="3">SS</option><option value="4">NE</option><option value="5">NW</option><option value="6">NC</option><option value="7">International</option></select><span class="input-group-addon"></span><div style="color:black;">GIT Insurance</div><select class="form-first-name form-control" name="git[]"  id="form-first-name"><option value="0">NO</option><option value="1">YES</option></select></div><br/><a href="#" class="remove_field_prerequsite">Remove</a></div>'); //add input box
+                $(wrapper).append('<div><div class="input-group"><div style="color:black;">Resource Type</div><select class="form-first-name form-control" name="resourceType[]" id="resourceType"><option value="0">Truck</option><option value="1">Ship</option><option value="2">Cargo Plane</option></select><span class="input-group-addon"></span><div style="color:black;">Estimated Capacity(Tonnes)</div><input class="form-first-name form-control" name="estimatedCapacity[]" id="form-first-name"><span class="input-group-addon"></span><div style="color:black;">Resource Status</div><select class="form-first-name form-control" name="resourceStatus[]"  id="form-first-name"><option value="0">Truck</option><option value="1">Ship</option><option value="2">Cargo Plane</option></select><span class="input-group-addon"></span><div style="color:black;">Type Of Route</div><select class="form-first-name form-control" name="routeType[]"  id="form-first-name"><option value="0">Nationwide</option><option value="1">SW</option><option value="2">SE</option><option value="3">SS</option><option value="4">NE</option><option value="5">NW</option><option value="6">NC</option><option value="7">International</option></select><span class="input-group-addon"></span><div style="color:black;">GIT Insurance</div><select class="form-first-name form-control" name="git[]"  id="form-first-name"><option value="0">NO</option><option value="1">YES</option></select></div><div class="input-group"><div style="color:black;">Origin</div><input class="form-first-name form-control" name="origin[]"  id="form-first-name"><span class="input-group-addon"></span><div style="color:black;">Destination</div><input class="form-first-name form-control" name="destination[]"  id="form-first-name"><span class="input-group-addon"></span><div style="color:black;">Price</div><input class="form-first-name form-control" name="price[]"  id="form-first-name"></div><br/><a href="#" class="remove_field_prerequsite">Remove</a></div>'); //add input box
             }
         });
 

@@ -21,3 +21,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::post('/createNewUser', 'UserManagementController@createNewUser');
+Route::get('/viewOrders', 'ServiceRequestController@showAllForCustomer');
+Route::get('/viewOrderDetails/{serviceIDNo}', 'ServiceRequestController@viewOrderDetails');
+Route::get('/searchResources/{serviceIDNo}', 'ServiceRequestController@searchResources');
+Route::get('/viewResource/{resource_id}', 'ServiceRequestController@viewResource');
+Route::post('/sendHaulageRequest', 'ServiceRequestController@sendHaulageRequest');
+Route::get('/createInvoiceForCarrier/{serviceIDNo}', 'ServiceRequestController@createInvoiceForCarrier');
+Route::get('/createInvoiceForClient/{serviceIDNo}', 'ServiceRequestController@createInvoiceForClient');
+Route::get('/carrierProceed/{id}', 'ServiceRequestController@carrierProceed');
+Route::get('/viewAllResources', 'ReportController@viewAllResources');
+Route::get('/viewAllUsers', 'ReportController@allUsers');

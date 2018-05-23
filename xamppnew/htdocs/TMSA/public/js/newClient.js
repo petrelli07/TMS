@@ -1,11 +1,12 @@
 $(document).ready(function() {
 
-    $(".newCarrDets").click(function(e){
+    $(".newClientDets").click(function(e){
 
         e.preventDefault();
+        var _token = $("input[name='_token']").val();/*
 
 
-        var _token = $("input[name='_token']").val();
+        alert(new FormData($("#clientDetails")[0]));*/
 
         $.ajax({
 
@@ -19,15 +20,16 @@ $(document).ready(function() {
 
             type:'POST',
 
-            data: new FormData($("#carrDetails")[0]),
-
+            data: new FormData($("#clientDetails")[0]),
             success: function(data) {
 
-                if($.isEmptyObject(data.error)){
 
+                if($.isEmptyObject(data.error)){
                     printSuccessMsg(data.success);
 
                     $("#userDetails")[0].reset();
+                    $(".ShowMeClient").hide();
+                    $(".userDetails").show();
 
                 }else{
 

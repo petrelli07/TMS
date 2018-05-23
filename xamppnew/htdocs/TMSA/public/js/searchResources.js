@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    $(".newCarrDets").click(function(e){
+    $(".haulageRequest").click(function(e){
 
         e.preventDefault();
 
@@ -15,11 +15,11 @@ $(document).ready(function() {
 
             contentType: false,
 
-            url: "http://localhost/TMSA/public/createNewUser",
+            url: "http://localhost/TMSA/public/sendHaulageRequest",
 
             type:'POST',
 
-            data: new FormData($("#carrDetails")[0]),
+            data: new FormData($("#haulReq")[0]),
 
             success: function(data) {
 
@@ -27,11 +27,9 @@ $(document).ready(function() {
 
                     printSuccessMsg(data.success);
 
-                    $("#userDetails")[0].reset();
-
                 }else{
 
-                    printErrorMsg(data.error);
+                    alert(data.error);
 
                 }
 

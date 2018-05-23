@@ -18,11 +18,19 @@ class CreateServiceRequestsTable extends Migration
             $table->string('serviceIDNo');
             $table->string('deliverFrom');
             $table->string('deliverTo');
-            $table->integer('orderStatus');
-            $table->integer('numberOfDays');
-            $table->string('requiredResourceType');
-            $table->integer('numberOfResources');
-            $table->date('dateOfDelivery');
+            $table->string('contactDetails');
+            $table->string('contactName');
+            $table->string('contactPhone');
+            $table->string('itemDescription');
+            $table->date('pickUpDate');
+            $table->string('pickUpTime');
+            $table->string('estimatedWgt');
+            $table->decimal('valueOfHaulage', 15, 2);
+            $table->integer('orderStatus');/*
+            $table->integer('packagingType');*/
+            //$table->string('requiredResourceType');
+            $table->integer('typeOfHaulage');
+            $table->integer('clientOrderID');
             $table->integer('createdBy')->unsigned()->index();
             $table->foreign('createdBy')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

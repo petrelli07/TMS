@@ -26,4 +26,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function ServiceRequest() {
+        return $this->hasMany('App\serviceRequest');
+    }
+
+    public function CarrierResource() {
+        return $this->hasMany('App\carrierResource');
+    }
+
+    public function ClientOrder() {
+        return $this->hasOne('App\ClientOrder');
+    }
 }
