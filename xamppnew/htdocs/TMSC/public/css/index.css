@@ -1,0 +1,121 @@
+.landing_background {
+background-image:url("../images/water.jpg");
+}
+
+.icon-bar{
+    background-color: #ffffff;
+}
+
+/*.nav-color{*/
+    /*background-color: rgba(255,255,255,0.6);*/
+    /*position: fixed;*/
+    /*width: 100%;*/
+    /*z-index: 9990;*/
+/*}*/
+.nav-wrap{
+    /*max-width: 1280px;*/
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+ul.nav li  {
+    width: 14%;
+    margin-top: 22px;
+    text-align: center;
+}
+
+.logo {
+    width: 16%;
+    text-align: center;
+    margin-top: -40px;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
+    background-color: #2ecc71;
+    color: #ffffff;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    background-color: rgba(46, 204, 113,0.6);
+    color: #ffffff;
+}
+
+.navbar {
+    /*max-width: 1280px;*/
+    /*height: 140px;*/
+    /*position:relative;*/
+    /*margin: 0 auto;*/
+    /*font-size: 11px;*/
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.navbar .nav {
+    float: none;
+    display: block;
+    margin: 0 auto;
+}
+
+.nav>li>a>img {
+    max-width: 100px;
+}
+
+.navbar-default .navbar-nav>.active>a>span.text {
+    border-bottom: 2px solid #ED5A24;
+    padding-bottom: 5px;
+}
+
+.navbar-default {
+    background-color: rgba(255,255,255,0.8);
+    /*border-color: #EAEAEA;*/
+    border: none;
+}
+
+@media (min-width: 768px) {
+    .navbar-nav > li > a {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+
+@media (max-device-width: 480px) and (orientation: landscape) {
+    .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
+        max-height: 100vh;
+    }
+}
+
+@media (max-width: 767px) {
+    #lang-selector {
+        position: absolute;
+        top: 10px;
+        left: 25px;
+        z-index: 9999;
+        font-weight: bold;
+        font-size: 1.5em;
+        display: table;
+    }
+
+    .navbar{
+        height: 50px !important;
+    }
+    .navbar-collapse{
+        background-color: #4F5759;
+        padding-bottom: 20px;
+    }
+    ul.nav li:nth-child(n) {
+        margin-top: 13px !important;
+        text-align: center;
+        width: 100%;
+        font-size: 1.5em;
+    }
+    .navbar-default .navbar-nav>li>a {
+        color: #EAEAEA;
+    }
+
+    .nav-color{
+        height: 50px !important;
+    }
+    .container-menu-offset{
+        padding-top: 50px  !important;
+    }
+
+}
